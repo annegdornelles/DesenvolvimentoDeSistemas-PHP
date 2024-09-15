@@ -1,13 +1,3 @@
-<?php
-    session_start();
-
-    $cod = $_REQUEST['cod'];
-
-    if ($cod=='304'){
-        echo '<p>Usuário não identificado.</p>';
-    }
-
-?>
 
 <!doctype html>
 <html lang="en">
@@ -37,6 +27,7 @@
 
          h1{
             text-align: center;
+            padding-top:30px;
          }
 
          main{
@@ -51,9 +42,9 @@
              height: 40px;
          }
 
-         .button:hover{
-            background-color: white;
-            color:black
+         p{
+            color: red;
+            text-align: center;
          }
 
 
@@ -64,7 +55,7 @@
             <h1>Login</h1>
         </header>
         <main>
-           <form method="POST" action="">
+           <form method="POST" action="src/controller/loginController.php">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" name="email" id="email"/>
@@ -72,7 +63,7 @@
               </div>
               <div class="mb-3">
                 <label for="" class="form-label">Senha</label>
-                <input type="password" class="form-control" name="pwd" id="pwd"/>
+                <input type="password" class="form-control" name="senha" id="senha"/>
                 <small id="helpId" class="form-text text-muted">Insira sua senha</small>
               </div>
               <div class="button">
@@ -99,3 +90,17 @@
         ></script>
     </body>
 </html>
+
+<?php
+
+session_start();
+
+$cod = isset($_GET['cod']) ? $_GET['cod'] : null;
+
+   if ($cod == '304'){
+       echo '<p>Usuário não identificado.</p>';
+}
+
+
+?>
+
