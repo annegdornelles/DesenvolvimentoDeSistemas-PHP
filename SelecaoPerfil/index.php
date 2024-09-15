@@ -1,7 +1,18 @@
+<?php
+    session_start();
+
+    $cod = $_REQUEST['cod'];
+
+    if ($cod=='304'){
+        echo '<p>Usuário não identificado.</p>';
+    }
+
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Title</title>
+        <title>Login</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -18,11 +29,59 @@
         />
     </head>
 
+    <style>
+         
+         body{
+            background-color:rgb(86, 153, 186);
+         }
+
+         h1{
+            text-align: center;
+         }
+
+         main{
+            margin:70px;
+            background-color: rgb(67, 116, 140);
+            padding:50px;
+            border-radius: 20px;
+         }
+
+         .button{
+             text-align: center;
+             height: 40px;
+         }
+
+         .button:hover{
+            background-color: white;
+            color:black
+         }
+
+
+    </style>
+
     <body>
         <header>
-            <!-- place navbar here -->
+            <h1>Login</h1>
         </header>
-        <main></main>
+        <main>
+           <form method="POST" action="">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email"/>
+                <small id="helpId" class="form-text text-muted">Insira seu email</small>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Senha</label>
+                <input type="password" class="form-control" name="pwd" id="pwd"/>
+                <small id="helpId" class="form-text text-muted">Insira sua senha</small>
+              </div>
+              <div class="button">
+              <input name="logar" class="btn btn-dark" type="submit" value="Enviar"/>
+        </div>
+           </form>
+            
+            
+        </main>
         <footer>
             <!-- place footer here -->
         </footer>
