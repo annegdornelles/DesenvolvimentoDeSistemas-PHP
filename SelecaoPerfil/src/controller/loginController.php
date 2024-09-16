@@ -5,12 +5,12 @@ if ($_POST){
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
-    $perfil = usersLogin($email, $senha);
+    $usuario = usersLogin($email, $senha);
 
-    if (count($perfil)>0){
+    if (count($usuario)>0){
         session_start();
-        $_SESSION['id'] = $perfil['id'];
-        $_SESSION['nome'] = $perfil['nome'];
+        $_SESSION['id'] = $usuario['id'];
+        $_SESSION['nome'] = $usuario['nome'];
         setcookie("email_usuario", $email, time() + (60 * 60 * 24 * 30), "/");
         header('Location:../../perfil.php');
     }
@@ -24,30 +24,30 @@ if ($_POST){
        
        $result = verPerfis();
 
-       $perfil = array();
+       $usuario = array();
 
        foreach ($result as $key => $value){
            
          if ($email == $value['email'] && $senha == $value['senha']){
-            $perfil['id'] = $value['id'];
-            $perfil['nome'] = $value['nome'];
-            $perfil['email'] = $value['email'];
-            $perfil['senha'] = $value['senha'];
+            $usuario['id'] = $value['id'];
+            $usuario['nome'] = $value['nome'];
+            $usuario['email'] = $value['email'];
+            $usuario['senha'] = $value['senha'];
             break;
          }
        }
 
-       return $perfil;
+       return $usuario;
    }
 
 
     function verPerfis(){
 
-    $perfis = array(
+    $usuarios = array(
         array('id'=>'1', 'nome'=>'Luisa', 'email' => 'luisa@gmail.com', 'senha' => '123'),
         array ('id'=>'2', 'nome'=>'Pedro', 'email'=>'pedro@net.com', 'senha' => '456'),
         array ('id' => '3', 'nome' => 'Alex', 'email' => 'alex@outlook.com', 'senha' => '789')
     );
 
-    return $perfis;
+    return $usuarios;
 }
