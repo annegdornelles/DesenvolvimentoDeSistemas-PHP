@@ -58,7 +58,7 @@
            <form method="POST" action="src/controller/loginController.php">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="email"/>
+                <input type="email" class="form-control" name="email" id="email" value="<?php echo isset($_COOKIE['email'])?$_COOKIE['email']:'';?>"/>
                 <small id="helpId" class="form-text text-muted">Insira seu email</small>
               </div>
               <div class="mb-3">
@@ -66,6 +66,8 @@
                 <input type="password" class="form-control" name="senha" id="senha"/>
                 <small id="helpId" class="form-text text-muted">Insira sua senha</small>
               </div>
+              <label for="salvarEmail">Salvar email</label>
+              <input type="checkbox" value="1" name="salvarEmail" id="salvarEmail" <?php echo (isset($_COOKIE['email']))?'checked':'';?> >
               <div class="button">
               <input name="logar" class="btn btn-dark" type="submit" value="Enviar"/>
         </div>

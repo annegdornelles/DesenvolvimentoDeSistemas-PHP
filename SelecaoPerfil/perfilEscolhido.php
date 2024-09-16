@@ -83,6 +83,7 @@ else {
         <main>
             <h1> Você selecionou o perfil: <?php echo $msg; ?></h1>
             <a class='login' href='index.php'>Voltar ao login</a>
+            <a class='login' href='perfil.php'>Selecionar outro perfil</a>
         </main>
         <footer>
             <!-- place footer here -->

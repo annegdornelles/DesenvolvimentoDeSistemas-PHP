@@ -2,6 +2,14 @@
 
 if ($_POST){
 
+    if (isset($_COOKIE['perfil_usuario'])) { // Se o perfil estiver no cookie, salva na sessão e redireciona
+        
+    $_SESSION['perfil'] = $_COOKIE['perfil_usuario'];
+    header("Location:../../perfilEscolhido.php");
+    }
+
+    else{
+
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
@@ -11,14 +19,19 @@ if ($_POST){
         session_start();
         $_SESSION['id'] = $usuario['id'];
         $_SESSION['nome'] = $usuario['nome'];
-        setcookie("email_usuario", $email, time() + (60 * 60 * 24 * 30), "/");
-        header('Location:../../perfil.php');
-    }
+
+        if (isset($_POST['salvarEmail']) && $_POST['salvarEmail'] == '1') {
+            setcookie('email', $email, time() + (86400*30), "/");
+        } else {
+            setcookie('email', '', time() - 3600, "/");
+        }
+        
+        header('Location:../../perfil.php');}
 
     else {
         header('Location:../../index.php?cod=304');
     }
-}
+}}
 
    function usersLogin($email, $senha){//compara usuario e senha
        
