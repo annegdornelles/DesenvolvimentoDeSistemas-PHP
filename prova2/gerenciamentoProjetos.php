@@ -51,6 +51,11 @@
             padding: 10px;
         }
 
+        p{
+            text-align: center;
+            color:red;
+        }
+
     </style>
 
     <body>
@@ -82,29 +87,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
+                        
+                        <?php
+                            require_once __DIR__ . "/src/controller/projetosController.php";
 
-                             require_once __DIR__ ."/src/controller/projetosController.php";
-           
-                             if ($_REQUEST){
-                             $cod = $_REQUEST['cod'];
-                             if ($cod == '300'){
-                                  echo '<p>O campo de status não pode ficar em branco.</p>';
+                            $projetosList = projetosLoadAll();
 
-                                  $projetosList = projetosLoadAll();
-                                  }
-                             else {
-                                     $projetosList = projetosLoadByStatusId();
-                                            }
+                            if (isset($_REQUEST['cod'])) {
+                                 $cod = $_REQUEST['cod']; // Aqui $cod é o valor de status enviado pela URL
+                                 
+                                 if ($cod == '300') {
+                                    echo '<p>O campo de status não pode ficar em branco.</p>';
+                                  } 
+                                
+                                 else {
+       
+                                    $projetosList = projetosLoadByStatusId($cod);
+                                 }
+                                }
 
-                              $projetosList = projetosLoadAll();
-                           
-                               foreach($projetosList as $key=>$value){
-                                echo '<tr>';
-                                echo '<td>'.$value['nomeProjeto'].'</td>';
-                                echo '<td>'.$value['status'].'</td>';
-                               }}
-                            ?>
+                                foreach ($projetosList as $key => $value) {
+                                     echo '<tr>';
+                                     echo '<td>' . $value['nomeProjeto'] . '</td>';
+                                     echo '<td>' . $value['status'] . '</td>';
+                                     echo '</tr>';
+}
+?>
+
+
+
                         </tbody>
                     </table>
                 </div>

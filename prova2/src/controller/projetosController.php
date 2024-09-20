@@ -37,7 +37,7 @@
         array('id'=>'1', 'nomeProjeto'=>'H2ORTA', 'status'=>'Em andamento','responsavel'=>'maria@gmail.com'),
         array('id'=>'2', 'nomeProjeto'=>'Reciclagem com robôs', 'status'=>'Concluído','responsavel'=>'maria@gmail.com'),
         array('id'=>'3', 'nomeProjeto'=>'GANHAR O JESMA', 'status'=>'Em andamento','responsavel'=>'julia@hotmail.com'),
-        array('id'=>'4', 'nomeProjeto'=>'Energia com batatas', 'status'=>'Concluido','responsavel'=>'pedro@outlook.com')
+        array('id'=>'4', 'nomeProjeto'=>'Energia com batatas', 'status'=>'Concluído','responsavel'=>'pedro@outlook.com')
     );
 
     return $projetos;
