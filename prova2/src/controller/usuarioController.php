@@ -38,6 +38,17 @@ function usersLogin($email, $senha){
     return $usuario;
 }
 
+function usuariosLoadNameByID($id) {
+    // Carrega todos os usuários
+    $usuarios = userLoadAll();
+
+    // Percorre a lista de usuários e retorna o nome do usuário correspondente ao ID
+    foreach ($usuarios as $usuario) {
+        if ($usuario['id'] == $id) {
+            return $usuario['nome'];
+        }
+    }}
+
 function userLoadAll(){
 
     $usuarios = array(

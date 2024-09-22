@@ -1,42 +1,31 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>Visualizador de tarefas</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+<head>
+    <title>Gestão de Tarefas</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-        <!-- Bootstrap CSS v5.2.1 -->
-        <link
-            href="./css/bootstrap.min.css"
-            rel="stylesheet"
-        />
+<style>
 
-        <script
-            src="./js/bootstrap.bundle.min.js"
-        ></script>
-
-    </head>
-
-    <style>
-
-    body{
+        body{
             background-color: lightcyan;
         }
             
         main{
                 margin:50px;
-                padding: 30px;
+                padding-top: 5px;
+                padding-left: 50px;
+                padding-right: 50px;
                 
         }
 
         
         h1{
-                padding-bottom: 20px;
+                padding-bottom: 5px;
                 text-align: center;
+                padding-top: 70px;
             }
 
         header{
@@ -50,95 +39,90 @@
             padding: 10px;
         }
 
-        </style>
+        p{
+            text-align: center;
+            color:red;
+        }
 
-    <body>
-        <main>
-        <body>
-        <header>
-            <!-- place navbar here -->
-            <nav
+    </style>
+
+<body>
+
+<header
+                <nav
                 class="nav justify-content-center  ">
                 <a class="nav-link active" href="gerenciamentoProjetos.php" aria-current="page">Gerenciar projetos</a>
                 <a class="nav-link" href="index.php">Login</a>
-            </nav>
-        </header>
-        <main>
-            <h1>Gerenciar tarefas</h1>
-            <form method="POST" action="src/controller/tarefasController.php">
-            <div class="mb-3">
-                <label for="" class="form-label">Insira o nome da tarefa que você deseja pesquisar:</label>
-                <input type="text" class="form-control" name="tarefa" id="" placeholder=""/>
-                <small id="helpId" class="form-text text-muted">Informe nome da tarefa</small><br>
-                <input type="submit" class="btn btn-primary" value="Pesquisar">
+    </header>
+
+    <h1>Selecione suas tarefas</h1>
+
+    <main class="container mt-4">
+        <form method="POST" action="src/controller/tarefasController.php">
+            <div class="form-group mb-3">
+                <label for="projeto">Pesquisar por projeto:</label>
+                <select name="projetoId" class="form-control" id="projeto">
+                    <option value="">Todos os projetos</option>
+                    <option value="1">H2ORTA</option>
+                    <option value="2">Reciclagem com robôs</option>
+                    <option value="3">GANHAR O JESMA</option>
+                    <option value="4">Energia com batatas</option>
+                </select>
+                <small id="helpId" class="form-text text-muted">Informe nome do projeto</small><br>
+                <button type="submit" class="btn btn-primary">Pesquisar</button>
             </div>
-            </form>
+        </form>
 
-            <div class="table-responsive">
-                    <table class="table table-primary">
-                        <thead>
-                            <tr>
-                                <th scope="col">Tarefa</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Descrição</th>
-                                <th scope="col">Nome do projeto associado</th>
-                                <th scope="col">Responsável</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        <?php
+        <div class="table-responsive">
+            <table class="table table-primary">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome da Tarefa</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Nome do Projeto</th>
+                        <th scope="col">Responsável</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                         require_once __DIR__ ."/src/controller/projetosController.php";
-                         require_once __DIR__ ."/src/controller/usuarioController.php";
-                         
+                <?php
+                require_once 'src/controller/tarefasController.php';
+                require_once 'src/controller/usuarioController.php';
+                require_once 'src/controller/projetosController.php';
 
-                         if ($_REQUEST){
-                         $cod = $_REQUEST['cod'];
-                         if ($cod == 'empty'){
-                        echo '<p>O campo de status não pode ficar em branco.</p>';
-
-                      $tarefasList = tarefasLoadAll();
-     }
-                        else {
-                      $tarefasList = tarefasLoadByStatusId();
-               }
-
- $tarefasList = projetosLoadAll();
-
-  foreach($tarefasList as $key=>$value){
-   echo '<tr>';
-   echo '<td>'.$value['status'].'</td>';
-   echo '<td>'.$value['descricao'].'</td>';
-   echo '<td>'. usersLogin($value['id']).'</td>';
-  }}
-  ?>
-                        </tbody>
-                    </table>
-                </div>
+                if (isset($_GET['projetoId']) && $_GET['projetoId'] !== '') {
+                    $projetoId = $_GET['projetoId'];
+                    $tarefasList = tarefasLoadByProjetoId($projetoId);
+                } 
                 
-            </div>
-            
-        </main>
-        <footer>
-            <!-- place footer here -->
-        </footer>
-        <!-- Bootstrap JavaScript Libraries -->
-        </main>
-        <footer>
-            <!-- place footer here -->
-        </footer>
-        <!-- Bootstrap JavaScript Libraries -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
+                else {
+                    $tarefasList = tarefasLoadAll();
+                }
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
-    </body>
+                $projetos = projetosLoadAll();
+                $projetoNomes = [];
+                foreach ($projetos as $projeto) {
+                    $projetoNomes[$projeto['id']] = $projeto['nomeProjeto'];
+                }
+
+                foreach ($tarefasList as $tarefa) {
+                    $nomeProjeto = isset($projetoNomes[$tarefa['projetoId']]) ? $projetoNomes[$tarefa['projetoId']] : 'Projeto desconhecido';
+                    $nomeUsuario = usuariosLoadNameByID($tarefa['responsavelId']);
+                    echo '<tr>';
+                    echo '<td>' . $tarefa['tarefa'] . '</td>';
+                    echo '<td>' . $tarefa['descricao'] . '</td>';
+                    echo '<td>' . $tarefa['status'] . '</td>';
+                    echo '<td>' . $nomeProjeto . '</td>';
+                    echo '<td>' . $nomeUsuario . '</td>';
+                    echo '</tr>';
+                }
+                ?>
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Bootstrap JavaScript Libraries -->
 </html>

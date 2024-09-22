@@ -71,10 +71,10 @@
             <h1>Selecione seus projetos</h1>
             <form method="POST" action="src/controller/projetosController.php">
             <div class="mb-3">
-                <label for="" class="form-label">Insira o status de projeto que você deseja pesquisar:</label>
-                <input type="text" class="form-control" name="status" id="" placeholder=""/>
-                <small id="helpId" class="form-text text-muted">Informe status do projeto</small><br><br>
-                <input type="submit" class="btn btn-primary" value="Pesquisar">
+            <label for="projeto">Pesquisar por status do projeto:</label>
+            <input type="text" class="form-control" name="status" placeholder=""/>
+                <small id="helpId" class="form-text text-muted">Informe status do projeto</small><br>
+                <button type="submit" class="btn btn-primary">Pesquisar</button>
             </div>
             </form>
 
@@ -94,17 +94,16 @@
                             $projetosList = projetosLoadAll();
 
                             if (isset($_REQUEST['cod'])) {
-                                 $cod = $_REQUEST['cod']; // Aqui $cod é o valor de status enviado pela URL
+                                 $cod = $_REQUEST['cod'];
                                  
                                  if ($cod == '300') {
                                     echo '<p>O campo de status não pode ficar em branco.</p>';
-                                  } 
+                                  }
                                 
                                  else {
-       
                                     $projetosList = projetosLoadByStatusId($cod);
                                  }
-                                }
+                                 }
 
                                 foreach ($projetosList as $key => $value) {
                                      echo '<tr>';

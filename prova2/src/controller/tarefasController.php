@@ -1,45 +1,41 @@
 <?php
 
-   if ($_POST){
+if ($_POST) {
 
-    $tarefa = $_POST['tarefa'];
+    //if (isset($_SESSION['id'])){
+    $projetoId = $_POST['projetoId'];
 
-    if (empty($tarefa)){
-        header('location:../../tarefas.php');
+    if (empty($projetoId)) {
+        header('location:../../tarefas.php?cod=300');
+    } else {
+        header('location:../../tarefas.php?projetoId=' . $projetoId);
     }
-    
-    else {
-        header('location:../../tarefas.php?cod='.$tarefas);
-    }
-   }
+}
 
-   function tarefasLoadByStatusId($status){
+/*else {
+    header('location:../../index.php');
+}}*/
 
-    $tarefa = tarefasLoadAll();
+function tarefasLoadByProjetoId($projetoId) {
+    $tarefas = tarefasLoadAll();
+    $result = array();
 
-    $result = null;
-    $count = 0;
-    
-    foreach ($tarefa as $key=>$value){
-        if ($status == $value['status']){
-            $result[$count]['id'] = $value['id'];
-            $result[$count]['nomeProjeto'] = $value['nomeProjeto'];
-            $result[$count]['status'] = $value['status'];
-            $count++;
+    foreach ($tarefas as $tarefa) {
+        if ($tarefa['projetoId'] == $projetoId) {
+            $result[] = $tarefa;
         }
     }
 
     return $result;
-   }
+}
 
-   function tarefasLoadAll(){
-       
+function tarefasLoadAll() {
     $tarefas = array(
-        array('id'=>'1', 'tarefa'=>'regar planta', 'status'=>'Em andamento','responsavel'=>'maria@gmail.com', 'projeto'=>'H2ORTA'),
-        array('id'=>'2', 'tarefa'=>'Recolher embalagens recicláveis', 'status'=>'Concluído','responsavel'=>'julia@gmail.com', 'projeto'=>'reciclagem'),
-        array('id'=>'3', 'tarefa'=>'Treinar toda quinta', 'status'=>'Em andamento','responsavel'=>'julia@hotmail.com', 'projeto'=>'JESMA'),
-        array('id'=>'4', 'tarefa'=>'Conseguir pilhas', 'status'=>'Concluido','responsavel'=>'pedro@outlook.com','projeto'=>'Energia renovável')
+        array('id' => '1', 'tarefa' => 'Regar plantas', 'status' => 'Em andamento', 'descricao' => 'Regar a horta semanalmente', 'projetoId' => '1', 'responsavelId' => '1'),
+        array('id' => '2', 'tarefa' => 'Recolher embalagens recicláveis', 'status' => 'Concluída', 'descricao' => 'Recolher materiais para reciclagem', 'projetoId' => '2', 'responsavelId' => '2'),
+        array('id' => '3', 'tarefa' => 'Treinar toda quinta', 'status' => 'Em andamento', 'descricao' => 'Treinamento semanal', 'projetoId' => '3', 'responsavelId' => '2'),
+        array('id' => '4', 'tarefa' => 'Conseguir pilhas', 'status' => 'Concluída', 'descricao' => 'Obter pilhas para o projeto', 'projetoId' => '4', 'responsavelId' => '3'),
     );
-
     return $tarefas;
-   }
+}
+?>
