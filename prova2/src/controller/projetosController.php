@@ -8,12 +8,12 @@ session_start();
 
     $status = $_POST['status'];
 
-   if (empty($status)){
+   /*if (empty($status)){
         header('location:../../gerenciamentoProjetos.php?cod=300');
     }
-    else {
+    else {*/
         header('location:../../gerenciamentoProjetos.php?cod='.$status);
-    }
+    //}
    }
 
 else {

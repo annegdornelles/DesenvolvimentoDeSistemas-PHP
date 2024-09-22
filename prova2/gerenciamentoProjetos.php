@@ -46,14 +46,19 @@
             text-align: center;
         }
 
-        a{
-            color: black;
-            padding: 10px;
-        }
-
         p{
             text-align: center;
             color:red;
+        }
+
+        .nav-link{
+            color: black;
+            padding: 20px;
+        }
+
+        .nav-link:hover{
+            text-decoration: underline;
+            color: black;
         }
 
     </style>
@@ -62,7 +67,7 @@
         <header>
             <nav
                 class="nav justify-content-center  ">
-                <a class="nav-link active" href="tarefas.php" aria-current="page">Gerenciar tarefas</a>
+                <a class="nav-link" href="tarefas.php" aria-current="page">Gerenciar tarefas</a>
                 <a class="nav-link" href="index.php">Login</a>
             </nav>
             
@@ -72,9 +77,14 @@
             <form method="POST" action="src/controller/projetosController.php">
             <div class="mb-3">
             <label for="projeto">Pesquisar por status do projeto:</label>
-            <input type="text" class="form-control" name="status" placeholder=""/>
-                <small id="helpId" class="form-text text-muted">Informe status do projeto</small><br>
-                <button type="submit" class="btn btn-primary">Pesquisar</button>
+                    <select class="form-control" name="status">
+                        <option value="">Selecione o status</option>
+                        <option value="Em andamento">Em andamento</option>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Concluído">Concluído</option>
+                    </select>
+                    <small id="helpId" class="form-text text-muted">Informe status do projeto</small><br>
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
             </div>
             </form>
 
@@ -96,13 +106,13 @@
                             if (isset($_REQUEST['cod'])) {
                                  $cod = $_REQUEST['cod'];
                                  
-                                 if ($cod == '300') {
+                                 /*if ($cod == '300') {
                                     echo '<p>O campo de status não pode ficar em branco.</p>';
                                   }
                                 
-                                 else {
+                                 else {*/
                                     $projetosList = projetosLoadByStatusId($cod);
-                                 }
+                                 //}
                                  }
 
                                 foreach ($projetosList as $key => $value) {
@@ -126,16 +136,5 @@
             <!-- place footer here -->
         </footer>
         <!-- Bootstrap JavaScript Libraries -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
-
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
     </body>
 </html>
